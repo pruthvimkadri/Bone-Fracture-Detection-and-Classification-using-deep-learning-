@@ -1,16 +1,20 @@
+# web server
 gunicorn
 Flask==2.3.3
 Flask-Mail==0.9.1
 pymongo==4.4.0
 dnspython==2.3.0
-flask
+
+# config & utilities
 python-dotenv
+requests
+numpy
 pillow
 opencv-python
-numpy
+reportlab
+
+# deep learning (CPU only)
+--extra-index-url https://download.pytorch.org/whl/cpu
 torch
 torchvision
-tensorflow
-reportlab
-requests
-
+tensorflow-cpu
