@@ -4,6 +4,14 @@ main.py — Frac-AI (updated: use PyTorch xray_validation_model.pt for X-ray val
 Only X-ray validation / gradcam parts converted from Keras -> PyTorch.
 Other app routes and DB code kept intact with minimal changes.
 """
+import os
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+
+import torch
+torch.set_num_threads(1)
+torch.set_num_interop_threads(1)
 
 import os
 import io
@@ -169,7 +177,7 @@ def build_mobilenet_xray(num_classes=3, device='cpu'):
     model.classifier[1] = torch.nn.Linear(model.last_channel, num_classes)
     return model
 
-def try_load_models():
+def ensure_models_loaded():
     global xray_model, binary_model, multi_model, torch_transform
     # Prepare Torch transforms (consistent with training)
     if TORCH_AVAILABLE:
